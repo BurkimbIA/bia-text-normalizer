@@ -8,3 +8,6 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Local reference data (the regression fixture is tracked separately)
+/Chiffres fulfulde - Feuille 1.csv

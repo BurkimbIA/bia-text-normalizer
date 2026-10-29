@@ -16,8 +16,3 @@ repos:
   hooks:
   - id: check-merge-conflict
   - id: mixed-line-ending
-
-exclude: |
-  unsloth_compiled_cache/.*
-  |llms-finetune/gemma3/unsloth_compiled_cache/.*
-  |.*\.ipynb$

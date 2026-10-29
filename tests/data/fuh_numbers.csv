@@ -1,0 +1,53 @@
+Nombre (Chiffre),Fulfulde,Décomposition
+1,Go'o,Unité
+2,didi,Unité
+3,Tati,Unité
+4,Nay,Unité
+5,Joy,Unité
+6,Jeego,5 + 1
+7,Je'di,5 + 2
+8,Jeetati,5 + 3
+9,Jeenay,5 + 4
+10,Sappo,Dizaine
+11,Sappo e go'o,10 et 1
+12,Sappo e didi,10 et 2
+13,Sappo e tati,10 et 3
+14,Sappo e nay,10 et 4
+15,Sappo e joy,10 et 5
+16,Sappo e Jeego,10 et 6
+17,Sappo e Je'di,10 et 7
+18,Sappo e Jeetati,10 et 8
+19,Sappo e jeenayi,10 et 9
+20,Noogay,Vingt
+21,Noogay e go'o,20 et 1
+22,Noogay e ɗiɗi,20 et 2
+25,Noogay e joy,20 et 5
+30,Cappanɗe tati,3 × 10
+35,Cappanɗe tati e joy,30 et 5
+40,Cappanɗe nayi,4 × 10
+50,Cappanɗe joy,5 × 10
+60,Cappanɗe Jeego,6 × 10
+70,Cappanɗe Je'di,7 × 10
+75,Cappanɗe Je'di e joy,70 et 5
+80,Cappanɗe Jeetati,8 × 10
+90,Cappanɗe jeenayi,9 × 10
+99,Cappanɗe jeenayi e jeenayi,90 et 9
+100, Hemre,Cent
+101,Hemre e go'o,100 et 1
+150,Hemre e cappanɗe joy,100 et 50
+200,keme didi,2 × 100
+300,keme tati,3 × 100
+400,keme nayi,4 × 100
+500,keme joy,5 × 100
+600,keme Jeego,6 × 100
+700,keme Je'di,7 × 100
+800,keme Jeetati,8 × 100
+900,keme jeenayi,9 × 100
+1000,Ujunere,Mille
+1001,Ujunere e go'o,1000 et 1
+1250,Ujunere e keme didi e cappanɗe joy,1000 + 200 + 50
+1500,Ujunere e keme joy,1000 et 500
+1789,Ujunere e keme Je'di e cappanɗe Jeetati e jeenayi,1000 + 700 + 80 + 9
+1999,Ujunere e keme jeenayi e cappanɗe jeenayi e jeenayi,1000 + 900 + 90 + 9
+2000,Ujunaaji didi,2 × 1000
+10000,Ujunaaji sapo,10 × 1000
