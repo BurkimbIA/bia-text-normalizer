@@ -50,7 +50,8 @@ normalize_transcription_text("Mam zoe 3 ruki la a 20 yʋʋmd .", lang="mos")
 `normalize` applies Unicode NFKC normalization, expands supported integers, and
 normalizes spacing. It preserves letter case, spelling, and punctuation.
 `normalize_transcription_text` additionally removes punctuation and characters
-outside the supplied Mooré label alphabet. Use this lossy cleanup only when
+outside the supplied Mooré label alphabet, keeping hyphens inside words such as
+`pis-tã`. Use this lossy cleanup only when
 preparing labels that require that alphabet.
 
 The command line supports the same two modes:
@@ -67,6 +68,9 @@ uv run bia-text-normalizer --lang mos --labels "Mam zoe 3 ruki."
 - Zero and thousand multipliers from 100 through 999 still need confirmed spoken
   forms. `normalize` leaves unsupported numbers unchanged; `number_to_moore`
   raises `ValueError` for unsupported values.
+- Space-grouped thousands such as `1 000 000` (including no-break and narrow
+  no-break spaces) are read as one number. Separate numbers that happen to look
+  like a group, such as `20 300`, are therefore read as 20,300.
 - Leading-zero sequences and contiguous numeric expressions containing signs,
   decimal separators, grouping separators, fraction bars, date separators, or
   time separators pass through unchanged. Dates, times, money, measurements, and
@@ -78,7 +82,8 @@ uv run bia-text-normalizer --lang mos --labels "Mam zoe 3 ruki."
 ## Fulfulde usage
 
 Fulfulde rules are based on 52 supplied examples, retained as a
-[regression test fixture](tests/data/fuh_numbers.csv).
+[regression test fixture](tests/data/fuh_numbers.csv) with two spelling
+corrections described below.
 
 ```python
 from bia_text_normalizer import normalize, normalize_transcription_text
@@ -88,7 +93,7 @@ number_to_fulfulde(1789)
 # "ujunere e keme je'di e cappanɗe jeetati e jeenayi"
 
 normalize("22, 10000.", lang="fuh")
-# 'noogay e ɗiɗi, ujunaaji sapo.'
+# 'noogay e ɗiɗi, ujunaaji sappo.'
 
 normalize_transcription_text("1, 7, 22!", lang="fuh")
 # "go'o je'di noogay e ɗiɗi"
@@ -100,9 +105,9 @@ uv run bia-text-normalizer --lang fuh --labels "1, 7, 22!"
 ```
 
 Generated number words are lowercase. The surrounding text keeps its case.
-The CSV's variants are retained: `didi` and `ɗiɗi` (in 22), `nay` and `nayi`,
-`jeenay` and `jeenayi`, and `sappo` and `sapo` (as a thousands multiplier).
-No spelling corrections have been inferred.
+Two is always written `ɗiɗi` and ten is always written `sappo`. The source CSV's
+`didi` and its `sapo` in 10,000 were corrected to these spellings. The CSV's
+other variants are retained: `nay` and `nayi`, and `jeenay` and `jeenayi`.
 
 ### Current limits
 
@@ -115,8 +120,8 @@ No spelling corrections have been inferred.
 - Numeric-expression handling follows the same rules as Mooré: leading zeros,
   signed values, decimals, dates, and similar forms pass through unchanged.
 - Fulfulde label cleanup preserves Unicode letters and combining marks, plus
-  internal apostrophes in words such as `go'o` and `je'di`. It removes other
-  punctuation. A restricted Fulfulde label alphabet has not been specified.
+  internal apostrophes and hyphens in words such as `go'o` and `je'di`. It
+  writes `’` and `ʼ` as `'` and removes other punctuation. A restricted Fulfulde label alphabet has not been specified.
 
 ## Dyula usage
 
@@ -161,7 +166,8 @@ is included in the package. No upstream runtime dependency is added.
   contraction, or spelling-rewriting rules are enabled.
 - Generated words are lowercase; surrounding text retains its spelling, case,
   and tone marks. Label cleanup retains Unicode letters, combining marks, and
-  internal apostrophes, and rejects numbers it would otherwise erase.
+  internal apostrophes and hyphens, writes `’` and `ʼ` as `'`, and rejects
+  numbers it would otherwise erase.
 
 ## Development
 

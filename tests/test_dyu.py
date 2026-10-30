@@ -80,7 +80,7 @@ def test_unicode_and_zero_use_existing_text_handling():
 
 
 def test_labels_preserve_tones_case_and_internal_apostrophes():
-    assert normalize_transcription_text("‘B’a’ fɔ́! ƐƆ Ɲɲ Ŋŋ 5.", lang="dyu") == "B’a fɔ́ ƐƆ Ɲɲ Ŋŋ looru"
+    assert normalize_transcription_text("‘B’a’ fɔ́! ƐƆ Ɲɲ Ŋŋ 5.", lang="dyu") == "B'a fɔ́ ƐƆ Ɲɲ Ŋŋ looru"
     assert normalize_transcription_text("0!", lang="dyu") == "fu"
 
 
@@ -88,6 +88,16 @@ def test_labels_preserve_tones_case_and_internal_apostrophes():
 def test_label_cleanup_cannot_drop_unsupported_numbers(text):
     with pytest.raises(ValueError, match="unsupported numbers"):
         normalize_transcription_text(text, lang="dyu")
+
+
+def test_labels_unify_apostrophes_and_keep_internal_hyphens():
+    assert normalize_transcription_text("a’a aʼa a'a so-so - -fɔ-", lang="dyu") == "a'a a'a a'a so-so fɔ"
+
+
+def test_space_grouped_thousands_are_one_number():
+    assert normalize("1 000 FCFA, 2\u202f000\u202f123.", lang="dyu") == (
+        "waga kelen FCFA, miliyɔn fila ni kɛmɛ ni mugan ni saba."
+    )
 
 
 def test_empty_text():

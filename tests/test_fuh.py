@@ -8,8 +8,9 @@ from bia_text_normalizer.languages.fuh import number_to_fulfulde, numbers_to_wor
 
 
 def _source_examples():
-    # Unedited snapshot of Chiffres fulfulde - Feuille 1.csv. Only incidental
-    # capitalization and the leading space in Hemre are normalized for output.
+    # Snapshot of Chiffres fulfulde - Feuille 1.csv with didi and sapo corrected
+    # to ɗiɗi and sappo. Incidental capitalization and the leading space in Hemre
+    # are normalized for output.
     path = Path(__file__).parent / "data" / "fuh_numbers.csv"
     with path.open(encoding="utf-8-sig", newline="") as handle:
         return [
@@ -26,11 +27,11 @@ def test_csv_number_forms(number, expected):
     ("number", "expected"),
     [
         (24, "noogay e nay"),
-        (42, "cappanɗe nayi e didi"),
+        (42, "cappanɗe nayi e ɗiɗi"),
         (110, "hemre e sappo"),
         (122, "hemre e noogay e ɗiɗi"),
-        (2_500, "ujunaaji didi e keme joy"),
-        (10_001, "ujunaaji sapo e go'o"),
+        (2_500, "ujunaaji ɗiɗi e keme joy"),
+        (10_001, "ujunaaji sappo e go'o"),
         (123_456, "ujunaaji hemre e noogay e tati e keme nayi e cappanɗe joy e jeego"),
         (
             999_999,
@@ -75,13 +76,21 @@ def test_unicode_normalization_does_not_split_fractions():
 
 def test_label_cleanup_preserves_word_apostrophes_and_fulfulde_letters():
     assert normalize_transcription_text("“Ɓe” 1, 7, 22!", lang="fuh") == "Ɓe go'o je'di noogay e ɗiɗi"
-    assert normalize_transcription_text("'Go'o' ‘Je’di’ Ɗɗ Ƴƴ Ŋŋ Ññ!", lang="fuh") == "Go'o Je’di Ɗɗ Ƴƴ Ŋŋ Ññ"
+    assert normalize_transcription_text("'Go'o' ‘Je’di’ Ɗɗ Ƴƴ Ŋŋ Ññ!", lang="fuh") == "Go'o Je'di Ɗɗ Ƴƴ Ŋŋ Ññ"
 
 
 @pytest.mark.parametrize("text", ["0", "1000000", "007", "3.14", "-3"])
 def test_label_cleanup_cannot_delete_unsupported_numbers(text):
     with pytest.raises(ValueError, match="unsupported numbers"):
         normalize_transcription_text(text, lang="fuh")
+
+
+def test_labels_unify_apostrophes():
+    assert normalize_transcription_text("go'o go’o goʼo", lang="fuh") == "go'o go'o go'o"
+
+
+def test_space_grouped_thousands_are_one_number():
+    assert normalize("10 000 ; 2 500", lang="fuh") == "ujunaaji sappo; ujunaaji ɗiɗi e keme joy"
 
 
 def test_empty_text():

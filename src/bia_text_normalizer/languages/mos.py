@@ -9,11 +9,11 @@ import re
 from .._text import (
     expand_numbers,
     normalize_text,
-    normalize_transcription_spacing,
     require_expanded_numbers,
+    strip_boundary_joiners,
 )
 
-_FINAL_LABEL_DISALLOWED_RE = re.compile(r"[^A-Za-zÃÕĨŨẼãõĩũẽƐɛƖɩƲʋŒœ\s]")
+_FINAL_LABEL_DISALLOWED_RE = re.compile(r"[^A-Za-zÃÕĨŨẼãõĩũẽƐɛƖɩƲʋŒœ\s-]")
 
 _UNITS = ["", "yembo", "yiibu", "tãabo", "naase", "nu", "yoobe", "yopoe", "nii", "wae"]
 _TENS = ["", "piiga", "pisi", "pis-tã", "pis-naase", "pis-nu", "pis-yoobe", "pis-yopoe", "pis-nii", "pis-wae"]
@@ -107,10 +107,11 @@ def normalize(text: str) -> str:
 def normalize_transcription_text(text: str) -> str:
     """Normalize labels with the supplied alphabet, preserving letter case.
 
-    This removes punctuation and letters outside the label alphabet. Refuse
-    residual numbers so cleanup cannot silently erase unsupported numeric forms.
+    This removes punctuation and letters outside the label alphabet, keeping
+    hyphens inside words such as pis-tã. Refuse residual numbers so cleanup
+    cannot silently erase unsupported numeric forms.
     """
     text = normalize(text)
     require_expanded_numbers(text)
     text = _FINAL_LABEL_DISALLOWED_RE.sub(" ", text)
-    return normalize_transcription_spacing(text)
+    return strip_boundary_joiners(text)

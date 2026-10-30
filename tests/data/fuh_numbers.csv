@@ -1,6 +1,6 @@
 Nombre (Chiffre),Fulfulde,Décomposition
 1,Go'o,Unité
-2,didi,Unité
+2,ɗiɗi,Unité
 3,Tati,Unité
 4,Nay,Unité
 5,Joy,Unité
@@ -10,7 +10,7 @@ Nombre (Chiffre),Fulfulde,Décomposition
 9,Jeenay,5 + 4
 10,Sappo,Dizaine
 11,Sappo e go'o,10 et 1
-12,Sappo e didi,10 et 2
+12,Sappo e ɗiɗi,10 et 2
 13,Sappo e tati,10 et 3
 14,Sappo e nay,10 et 4
 15,Sappo e joy,10 et 5
@@ -35,7 +35,7 @@ Nombre (Chiffre),Fulfulde,Décomposition
 100, Hemre,Cent
 101,Hemre e go'o,100 et 1
 150,Hemre e cappanɗe joy,100 et 50
-200,keme didi,2 × 100
+200,keme ɗiɗi,2 × 100
 300,keme tati,3 × 100
 400,keme nayi,4 × 100
 500,keme joy,5 × 100
@@ -45,9 +45,9 @@ Nombre (Chiffre),Fulfulde,Décomposition
 900,keme jeenayi,9 × 100
 1000,Ujunere,Mille
 1001,Ujunere e go'o,1000 et 1
-1250,Ujunere e keme didi e cappanɗe joy,1000 + 200 + 50
+1250,Ujunere e keme ɗiɗi e cappanɗe joy,1000 + 200 + 50
 1500,Ujunere e keme joy,1000 et 500
 1789,Ujunere e keme Je'di e cappanɗe Jeetati e jeenayi,1000 + 700 + 80 + 9
 1999,Ujunere e keme jeenayi e cappanɗe jeenayi e jeenayi,1000 + 900 + 90 + 9
-2000,Ujunaaji didi,2 × 1000
-10000,Ujunaaji sapo,10 × 1000
+2000,Ujunaaji ɗiɗi,2 × 1000
+10000,Ujunaaji sappo,10 × 1000

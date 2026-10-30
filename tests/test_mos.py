@@ -1,8 +1,8 @@
 import pytest
 
+from bia_text_normalizer._text import normalize_transcription_spacing
 from bia_text_normalizer.languages.mos import (
     normalize,
-    normalize_transcription_spacing,
     normalize_transcription_text,
     number_to_moore,
     numbers_to_words,
@@ -90,6 +90,43 @@ def test_label_cleanup_is_explicit_and_keeps_case():
 def test_label_cleanup_cannot_silently_delete_unsupported_numbers(text):
     with pytest.raises(ValueError, match="unsupported numbers"):
         normalize_transcription_text(text)
+
+
+@pytest.mark.parametrize(
+    ("text", "expected"),
+    [
+        ("1 000", "tusri"),
+        ("2 500 FCFA", "tusa yi la kobs-nu FCFA"),
+        ("1\u00a0000\u202f003", "milyõ ye tãabo"),
+        ("1 000 000", "milyõ ye"),
+    ],
+)
+def test_space_grouped_thousands_are_one_number(text, expected):
+    assert normalize(text) == expected
+
+
+@pytest.mark.parametrize("text", ["1 000,5", "1 000.5", "007 000", "-1 000"])
+def test_unsupported_space_grouped_forms_pass_through(text):
+    assert numbers_to_words(text) == text
+
+
+@pytest.mark.parametrize(
+    ("text", "expected"),
+    [
+        ("12 34", "piig la a yi pis-tã la a naase"),
+        ("10 2000", "piiga tusa yi"),
+        ("1 00", "yembo 00"),
+        # Separate numbers that look like a thousands group are read as one.
+        ("20 300", "tus-pisi la kobs-tã"),
+    ],
+)
+def test_irregular_groups_are_separate_numbers(text, expected):
+    assert numbers_to_words(text) == expected
+
+
+def test_labels_keep_word_internal_hyphens():
+    assert normalize_transcription_text("20, 30, 200, 10000") == "pisi pis-tã kobs-yi tus-piiga"
+    assert normalize_transcription_text("Kãab-noodo - la -saglse-.") == "Kãab-noodo la saglse"
 
 
 def test_spacing_and_empty_text():

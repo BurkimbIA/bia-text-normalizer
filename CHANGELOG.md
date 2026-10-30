@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Mooré integer text normalization, explicit transcription label cleanup, and a command-line interface.
 - Preserve unsupported numeric forms during TN and reject label cleanup that would erase them.
 - Fulfulde (`fuh`) cardinal normalization and CLI support based on all 52 supplied CSV examples, with word apostrophes retained in labels.
+- Write Fulfulde two as `ɗiɗi` and ten as `sappo` everywhere, correcting the source CSV's `didi` and `sapo`.
+- Read space-grouped thousands such as `1 000 000 FCFA` as one number.
+- Keep word-internal hyphens in labels, so generated words such as `pis-tã` stay whole.
+- Write `’` and `ʼ` as `'` in Dyula and Fulfulde labels.
 - Dyula (`dyu`) integer normalization and CLI support with Jula vocabulary, adapting MALIBA-AI's cardinal decomposition with its MIT notice retained in the package.
 
 ### Changed

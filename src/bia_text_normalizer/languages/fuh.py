@@ -1,8 +1,9 @@
 """Fulfulde cardinal rules derived from Chiffres fulfulde - Feuille 1.csv.
 
 The 52 source examples cover 1 through 10,000. Their compositional patterns are
-extended to positive integers below one million. Generated words are lowercase;
-the source's contextual spelling variants are retained rather than corrected.
+extended to positive integers below one million. Generated words are lowercase.
+Two is always ɗiɗi and ten is always sappo; the source's didi and its sapo in
+10,000 were corrected to these spellings.
 """
 
 from .._text import (
@@ -11,9 +12,9 @@ from .._text import (
     normalize_text,
 )
 
-_UNITS = ("", "go'o", "didi", "tati", "nay", "joy", "jeego", "je'di", "jeetati", "jeenay")
+_UNITS = ("", "go'o", "ɗiɗi", "tati", "nay", "joy", "jeego", "je'di", "jeetati", "jeenay")
 # The source uses nayi and jeenayi as multipliers, and jeenayi as a remainder.
-_MULTIPLIERS = {4: "nayi", 9: "jeenayi", 10: "sapo"}
+_MULTIPLIERS = {4: "nayi", 9: "jeenayi"}
 _REMAINDERS = {9: "jeenayi"}
 
 
@@ -36,9 +37,6 @@ def number_to_fulfulde(n: int) -> str:
 
     if n < 10:
         return _UNITS[n]
-    if n == 22:
-        # Preserve the only source example with ɗiɗi rather than didi.
-        return "noogay e ɗiɗi"
     if n < 100:
         tens, unit = divmod(n, 10)
         if tens == 1:
